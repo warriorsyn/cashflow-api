@@ -49,6 +49,9 @@ Outra opção é abrir o projeto diretamente no Visual Studio e executar clicand
 
 Por favor, note que esta API foi construída utilizando a versão 6 do .NET.
 
+Para acessar o Swagger, entre na URL `http://localhost:3200/swagger`.
+Por favor, note que é possível realizar todas as operações da API diretamente pelo Swagger.
+
 ### Via Docker
 
 Para executar o projeto via Docker Compose, execute na raiz do projeto o comando `docker-compose up`. Note que é necessário ter o Docker e o Docker Compose instalados em seu ambiente.
