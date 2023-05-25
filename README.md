@@ -36,6 +36,10 @@ Para acessar o Swagger, entre na URL `http://localhost:3200/swagger`.
 
 Por favor, note que é possível realizar todas as operações da API diretamente pelo Swagger.
 
+### Testes unitários
+
+Para executas os testes unitários basta entrar na pasta CashFlow.Specs e executar o comando `dotnet test`
+
 ## Sobre o projeto
 
 Este projeto utiliza os seguintes padrões e tecnologias:
