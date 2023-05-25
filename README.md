@@ -38,6 +38,9 @@ A CashFlow API é uma API RESTful em .NET 6.0 que permite o controle do fluxo de
 
 ![image](https://github.com/warriorsyn/cashflow-api/assets/39230805/833fa322-70bb-4000-9a02-087ee349b0ba)
 
+## Observação
+
+Durante a execução de teste de api a operação de `CREDITO` e `DEBITO` são representadas por enums, logo `CREDITO = 0 E DEBITO = 1`
 
 ## Como executar
 
