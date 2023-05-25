@@ -1,4 +1,12 @@
+using CashFlow.Infra.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+
+
+builder.Services.AddDbContext<DataContext>(opt =>
+          opt.UseInMemoryDatabase("CashFlow"));
+
 
 // Add services to the container.
 
