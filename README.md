@@ -38,6 +38,8 @@ A CashFlow API é uma API RESTful em .NET 6.0 que permite o controle do fluxo de
 
 Durante a execução de teste de api a operação de `CREDITO` e `DEBITO` são representadas por enums, logo `CREDITO = 0 E DEBITO = 1`
 
+Caso seja executado pelo docker lembre que a port exposta é a `3200`.
+
 ## Como executar
 
 ### Executando o projeto diretamente
