@@ -50,7 +50,10 @@ Outra opção é abrir o projeto diretamente no Visual Studio e executar clicand
 Por favor, note que esta API foi construída utilizando a versão 6 do .NET.
 
 Para acessar o Swagger, entre na URL `http://localhost:3200/swagger`.
-Por favor, note que é possível realizar todas as operações da API diretamente pelo Swagger.
+Por favor, note que é possível realizar todas as operações da API diretamente pelo Swagger.<br>
+
+Caso prefira segue também uma collection no `Postman` com os endpoints já criados<br>
+https://restless-star-501117.postman.co/workspace/Team-Workspace~4d019a1c-3ab2-4147-8cd1-760e04194bbd/collection/11187091-9f718bf9-da12-4106-a675-f0c18fb1fd3b?action=share&creator=11187091
 
 ### Via Docker
 
@@ -60,7 +63,11 @@ Após isso, a API estará executando na seguinte URL: `http://localhost:3200`.
 
 Para acessar o Swagger, entre na URL `http://localhost:3200/swagger`.
 
-Por favor, note que é possível realizar todas as operações da API diretamente pelo Swagger.
+Por favor, note que é possível realizar todas as operações da API diretamente pelo Swagger.<br>
+
+
+Caso prefira segue também uma collection no `Postman` com os endpoints já criados<br>
+https://restless-star-501117.postman.co/workspace/Team-Workspace~4d019a1c-3ab2-4147-8cd1-760e04194bbd/collection/11187091-9f718bf9-da12-4106-a675-f0c18fb1fd3b?action=share&creator=11187091
 
 ### Testes unitários
 
