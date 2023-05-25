@@ -16,6 +16,12 @@ public class TransactionEFRepository: ITransactionRepository
     public async Task<List<Transaction>> GetAllAsync() =>
         await _context.Transactions.ToListAsync();
 
+    public async Task<List<Transaction>> GetTransactionsByDate(DateTime date)
+    {
+       return await _context.Transactions.Where(w => w.Date.Date == date.Date).ToListAsync();
+    }
+      
+
     public async Task<Transaction> GetByIdAsync(int id) =>
         await _context.Transactions.FirstOrDefaultAsync(l => l.Id == id);
 
@@ -33,10 +39,10 @@ public class TransactionEFRepository: ITransactionRepository
 
     public async Task DeleteAsync(int id)
     {
-        var lancamento = await _context.Transactions.FirstOrDefaultAsync(l => l.Id == id);
-        if (lancamento != null)
+        var transaction = await _context.Transactions.FirstOrDefaultAsync(l => l.Id == id);
+        if (transaction != null)
         {
-            _context.Transactions.Remove(lancamento);
+            _context.Transactions.Remove(transaction);
             await _context.SaveChangesAsync();
         }
     }

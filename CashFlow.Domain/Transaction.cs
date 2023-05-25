@@ -3,9 +3,9 @@
 public class Transaction
 {
     public int Id { get; set; }
-    public decimal Valor { get; set; }
-    public DateTime Data { get; set; }
-    public TransactionType Tipo { get; set; }
+    public decimal Value { get; set; }
+    public DateTime Date { get; set; }
+    public TransactionType Type { get; set; }
 }
 
 public enum TransactionType

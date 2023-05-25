@@ -1,5 +1,6 @@
 using CashFlow.Infra.Data;
 using CashFlow.Infra.Repositories;
+using CashFlow.Services.Report;
 using CashFlow.Services.Transaction;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,6 +23,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<ITransactionRepository, TransactionEFRepository>();
 builder.Services.AddScoped<ITransactionService, TransactionService>();
+builder.Services.AddScoped<IReportService, ReportService>();
 
 var app = builder.Build();
 
