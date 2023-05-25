@@ -30,14 +30,14 @@ public class TransactionController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<Domain.Transaction>> CreateAsync([FromBody] Domain.Transaction transaction)
+    public async Task<ActionResult<Domain.Transaction>> CreateAsync([FromBody] Dto.TransactionDto transaction)
     {
         await _transactionService.CreateAsync(transaction);
         return NoContent();
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateAsync(int id, [FromBody] Domain.Transaction transaction)
+    public async Task<IActionResult> UpdateAsync(int id, [FromBody] Dto.TransactionDto transaction)
     {
         if (id != transaction.Id)
         {
