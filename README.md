@@ -34,4 +34,5 @@ Este projeto utiliza os seguintes padrões e tecnologias:
 - Entity Framework Core
 - Padrão DDD (Domain-Driven Design)
 - Princípios SOLID
+- Testes de unitários
 - Docker
