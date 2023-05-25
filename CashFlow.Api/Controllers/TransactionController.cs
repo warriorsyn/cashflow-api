@@ -15,11 +15,11 @@ public class TransactionController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<Domain.Transaction>>> GetAllAsync() =>
+    public async Task<ActionResult<List<Dto.TransactionDto>>> GetAllAsync() =>
         await _transactionService.GetAllAsync();
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Domain.Transaction>> GetByIdAsync(int id)
+    public async Task<ActionResult<Dto.TransactionDto>> GetByIdAsync(int id)
     {
         var lancamento = await _transactionService.GetByIdAsync(id);
         if (lancamento == null)

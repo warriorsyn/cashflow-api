@@ -1,7 +1,9 @@
-﻿namespace CashFlow.Services.Report;
+﻿using CashFlow.Dto;
+
+namespace CashFlow.Services.Report;
 
 public interface IReportService
 {
-    Task<decimal> GetDailyBalanceAsync(DateTime date);
+    Task<DailyBalanceDto> GetDailyBalanceAsync(DateTime date);
 }
 

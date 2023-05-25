@@ -11,11 +11,20 @@ namespace CashFlow.Services.Transaction
             _repository = repository;
         }
 
-        public async Task<List<Domain.Transaction>> GetAllAsync() =>
-            await _repository.GetAllAsync();
+        public async Task<List<Dto.TransactionDto>> GetAllAsync()
+        {
+            var transactions = await _repository.GetAllAsync();
 
-        public async Task<Domain.Transaction> GetByIdAsync(int id) =>
-            await _repository.GetByIdAsync(id);
+            return transactions.Select(s => new Dto.TransactionDto(s)).ToList();
+        }
+           
+
+        public async Task<Dto.TransactionDto> GetByIdAsync(int id)
+        {
+           var transaction = await _repository.GetByIdAsync(id);
+
+            return new Dto.TransactionDto(transaction);
+        }
 
         public async Task CreateAsync(Domain.Transaction lancamento)
         {

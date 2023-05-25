@@ -1,4 +1,5 @@
-﻿using CashFlow.Infra.Repositories;
+﻿using CashFlow.Dto;
+using CashFlow.Infra.Repositories;
 
 namespace CashFlow.Services.Report
 {
@@ -12,15 +13,16 @@ namespace CashFlow.Services.Report
             _repository = repository;
         }
 
-        public async Task<decimal> GetDailyBalanceAsync(DateTime date)
+        public async Task<DailyBalanceDto> GetDailyBalanceAsync(DateTime date)
         {
             var transactions = await _repository.GetTransactionsByDate(date);
-            decimal total = 0m;
+            decimal totalBalance = 0m;
             foreach (var transaction in transactions)
             {
-                total += transaction.Type == Domain.TransactionType.Debit ? -transaction.Value : transaction.Value;
+                totalBalance += transaction.Type == Domain.TransactionType.Debit ? -transaction.Value : transaction.Value;
             }
-            return total;
+
+            return new DailyBalanceDto(totalBalance);
         }
     }
 }

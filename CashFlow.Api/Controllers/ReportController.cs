@@ -14,7 +14,7 @@ public class ReportController : ControllerBase
         _reportService = reportService;
     }
 
-    [HttpGet("{date}")]
-    public async Task<ActionResult<decimal>> GetDailyBalanceAsync(DateTime date) =>
+    [HttpGet]
+    public async Task<ActionResult<Dto.DailyBalanceDto>> GetDailyBalanceAsync(DateTime date) =>
         await _reportService.GetDailyBalanceAsync(date);
 }
