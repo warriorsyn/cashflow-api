@@ -51,7 +51,7 @@ Por favor, note que esta API foi construída utilizando a versão 6 do .NET.
 
 Para acessar o Swagger, entre na URL `http://localhost:3200/swagger`.
 Por favor, note que é possível realizar todas as operações da API diretamente pelo Swagger.
-
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/11187091-9f718bf9-da12-4106-a675-f0c18fb1fd3b?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D11187091-9f718bf9-da12-4106-a675-f0c18fb1fd3b%26entityType%3Dcollection%26workspaceId%3D4d019a1c-3ab2-4147-8cd1-760e04194bbd)
 Caso prefira segue também uma collection no `Postman` com os endpoints já criados
 
 
