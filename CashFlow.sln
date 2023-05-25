@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashFlow.Infra", "CashFlow.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashFlow.Dto", "CashFlow.Dto\CashFlow.Dto.csproj", "{D3666625-8B2C-4371-887C-7998AF1E947B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CashFlow.Services", "CashFlow.Services\CashFlow.Services.csproj", "{7CD60062-40DD-4117-AE1D-99D57EBECD76}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{D3666625-8B2C-4371-887C-7998AF1E947B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3666625-8B2C-4371-887C-7998AF1E947B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3666625-8B2C-4371-887C-7998AF1E947B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CD60062-40DD-4117-AE1D-99D57EBECD76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CD60062-40DD-4117-AE1D-99D57EBECD76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CD60062-40DD-4117-AE1D-99D57EBECD76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CD60062-40DD-4117-AE1D-99D57EBECD76}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
