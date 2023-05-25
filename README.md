@@ -1,7 +1,3 @@
-Segue o README que você pediu:
-
----
-
 # CashFlow API
 
 A CashFlow API é uma API RESTful em .NET 6.0 que permite o controle do fluxo de caixa de um comerciante com lançamentos (débitos e créditos) e um relatório que disponibiliza o saldo diário consolidado.
