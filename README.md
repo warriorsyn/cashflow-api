@@ -48,7 +48,7 @@ Outra opção é abrir o projeto diretamente no Visual Studio e executar clicand
 
 Por favor, note que esta API foi construída utilizando a versão 6 do .NET.
 
-Para acessar o Swagger, entre na URL `http://localhost:3200/swagger`.
+Para acessar o Swagger, entre na URL `http://localhost:5201/swagger`.
 Por favor, note que é possível realizar todas as operações da API diretamente pelo Swagger.<br>
 
 Caso prefira segue também uma collection no `Postman` com os endpoints já criados<br>
