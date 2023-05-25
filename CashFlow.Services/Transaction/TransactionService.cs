@@ -1,4 +1,5 @@
-﻿using CashFlow.Infra.Repositories;
+﻿using CashFlow.Domain.Exceptions;
+using CashFlow.Infra.Repositories;
 
 namespace CashFlow.Services.Transaction;
 
@@ -23,10 +24,15 @@ public class TransactionService : ITransactionService
     {
         var transaction = await _repository.GetByIdAsync(id);
 
+        if (transaction == null)
+        {
+            throw new TransactionNotFoundException("This transaction cannot be found");
+        }
+
         return new Dto.TransactionDto(transaction);
     }
 
-    public async Task CreateAsync(Dto.TransactionDto transactionDto)
+    public async Task CreateAsync(Dto.TransactionRequestDto transactionDto)
     {
         Domain.Transaction transaction = new()
         {
@@ -38,11 +44,11 @@ public class TransactionService : ITransactionService
         await _repository.CreateAsync(transaction);
     }
 
-    public async Task UpdateAsync(Dto.TransactionDto transactionDto)
+    public async Task UpdateAsync(Dto.TransactionRequestDto transactionDto, int id)
     {
         Domain.Transaction transaction = new()
         {
-            Id = transactionDto.Id,
+            Id = id,
             Date = transactionDto.Date,
             Value = transactionDto.Value,
             Type = transactionDto.Type,

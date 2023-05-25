@@ -1,12 +1,13 @@
-﻿using CashFlow.Domain.Enums;
+﻿using CashFlow.Domain;
+using CashFlow.Domain.Enums;
 
-namespace CashFlow.Domain;
+namespace CashFlow.Dto;
 
-public class Transaction
+public class TransactionRequestDto
 {
-    public int Id { get; set; }
     public decimal Value { get; set; }
     public DateTime Date { get; set; }
     public TransactionTypeEnum Type { get; set; }
 }
+
 

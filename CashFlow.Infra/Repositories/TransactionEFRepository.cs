@@ -1,4 +1,5 @@
 ﻿using CashFlow.Domain;
+using CashFlow.Domain.Enums;
 using CashFlow.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,7 +26,7 @@ public class TransactionEFRepository: ITransactionRepository
     {
         return await _context.Transactions
             .Where(t => t.Date.Date == date.Date)
-            .SumAsync(t => t.Type == TransactionType.Debit ? -t.Value : t.Value);
+            .SumAsync(t => t.Type == TransactionTypeEnum.Debit ? -t.Value : t.Value);
     }
 
 

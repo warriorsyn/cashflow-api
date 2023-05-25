@@ -1,4 +1,5 @@
 ﻿using CashFlow.Domain;
+using CashFlow.Domain.Enums;
 
 namespace CashFlow.Dto;
 
@@ -7,9 +8,9 @@ public class TransactionDto
 
     #region privates
 
-    private static string GetTypeDesciptionByTypeEnum(TransactionType type)
+    private static string GetTypeDesciptionByTypeEnum(TransactionTypeEnum type)
     {
-        return type == TransactionType.Credit ? "Credit" : "Debit";
+        return type == TransactionTypeEnum.Credit ? "Credit" : "Debit";
     }
  
     #endregion
@@ -32,7 +33,7 @@ public class TransactionDto
     public int Id { get; set; }
     public decimal Value { get; set; }
     public DateTime Date { get; set; }
-    public TransactionType Type { get; set; }
+    public TransactionTypeEnum Type { get; set; }
     public string? TypeDescription { get; set; }
 }
 

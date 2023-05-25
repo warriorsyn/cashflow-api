@@ -1,4 +1,5 @@
-﻿using CashFlow.Services.Transaction;
+﻿using CashFlow.Domain.Exceptions;
+using CashFlow.Services.Transaction;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CashFlow.Api.Controllers;
@@ -21,29 +22,33 @@ public class TransactionController : ControllerBase
     [HttpGet("{id}")]
     public async Task<ActionResult<Dto.TransactionDto>> GetByIdAsync(int id)
     {
-        var lancamento = await _transactionService.GetByIdAsync(id);
-        if (lancamento == null)
+        try
         {
-            return NotFound();
+            var transaction = await _transactionService.GetByIdAsync(id);
+            return transaction;
         }
-        return lancamento;
+        catch(TransactionNotFoundException e)
+        {
+            return NotFound(e.Message);
+        } 
     }
 
     [HttpPost]
-    public async Task<ActionResult<Domain.Transaction>> CreateAsync([FromBody] Dto.TransactionDto transaction)
+    public async Task<ActionResult<Domain.Transaction>> CreateAsync([FromBody] Dto.TransactionRequestDto transaction)
     {
         await _transactionService.CreateAsync(transaction);
         return NoContent();
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateAsync(int id, [FromBody] Dto.TransactionDto transaction)
+    public async Task<IActionResult> UpdateAsync(int id, [FromBody] Dto.TransactionRequestDto transaction)
     {
-        if (id != transaction.Id)
+        if (id == 0)
         {
             return BadRequest();
         }
-        await _transactionService.UpdateAsync(transaction);
+
+        await _transactionService.UpdateAsync(transaction, id);
         return NoContent();
     }
 

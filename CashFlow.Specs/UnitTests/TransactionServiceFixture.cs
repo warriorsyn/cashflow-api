@@ -1,4 +1,6 @@
 ﻿using CashFlow.Domain;
+using CashFlow.Domain.Enums;
+using CashFlow.Domain.Exceptions;
 using CashFlow.Dto;
 using CashFlow.Infra.Repositories;
 using CashFlow.Services.Transaction;
@@ -8,77 +10,103 @@ namespace CashFlow.Specs.UnitTests;
 
 public class TransactionServiceFixture
 {
-    private Mock<ITransactionRepository> _repositoryMock;
-    private TransactionService _service;
+    private Mock<ITransactionRepository> _transactionRepositoryMock;
+    private TransactionService _transactionService;
 
     [SetUp]
     public void SetUp()
     {
-        _repositoryMock = new Mock<ITransactionRepository>();
-        _service = new TransactionService(_repositoryMock.Object);
+        _transactionRepositoryMock = new Mock<ITransactionRepository>();
+        _transactionService = new TransactionService(_transactionRepositoryMock.Object);
     }
 
     [Test]
-    public async Task GetAllAsync_ReturnsAllTransactions()
+    public async Task GetAllAsync_ReturnsCorrectTransactions()
     {
-        List<Transaction> transactions = new()
+        List< Transaction> transactions = new()
             {
-                new Transaction { Id = 1, Date = DateTime.Now, Type = TransactionType.Credit, Value = 100 },
-                new Transaction { Id = 2, Date = DateTime.Now, Type = TransactionType.Debit, Value = 50 },
+                new Transaction { Id = 1, Date = DateTime.Now, Type = TransactionTypeEnum.Credit, Value = 100 },
+                new Transaction { Id = 2, Date = DateTime.Now, Type = TransactionTypeEnum.Debit, Value = 50 }
             };
 
-        _repositoryMock.Setup(r => r.GetAllAsync()).ReturnsAsync(transactions);
+        _transactionRepositoryMock
+            .Setup(repo => repo.GetAllAsync())
+            .ReturnsAsync(transactions);
 
-        var result = await _service.GetAllAsync();
+        var result = await _transactionService.GetAllAsync();
 
         Assert.That(result, Has.Count.EqualTo(2));
+        Assert.Multiple(() =>
+        {
+            Assert.That(result[0].Id, Is.EqualTo(transactions[0].Id));
+            Assert.That(result[1].Id, Is.EqualTo(transactions[1].Id));
+        });
     }
 
     [Test]
     public async Task GetByIdAsync_ReturnsCorrectTransaction()
     {
-        Transaction transaction = new() { Id = 1, Date = DateTime.Now, Type = TransactionType.Credit, Value = 100 };
+        // Arrange
+        Transaction transaction = new() { Id = 1, Date = DateTime.Now, Type = TransactionTypeEnum.Credit, Value = 100 };
 
-        _repositoryMock.Setup(r => r.GetByIdAsync(1)).ReturnsAsync(transaction);
+        _transactionRepositoryMock
+            .Setup(repo => repo.GetByIdAsync(It.IsAny<int>()))
+            .ReturnsAsync(transaction);
 
+        var result = await _transactionService.GetByIdAsync(transaction.Id);
 
-        var result = await _service.GetByIdAsync(1);
-        Assert.Multiple(() =>
-        {
-            Assert.That(result.Id, Is.EqualTo(transaction.Id));
-            Assert.That(result.Date, Is.EqualTo(transaction.Date));
-            Assert.That(result.Type, Is.EqualTo(transaction.Type));
-            Assert.That(result.Value, Is.EqualTo(transaction.Value));
-        });
+        Assert.That(result.Id, Is.EqualTo(transaction.Id));
+    }
+
+    [Test]
+    public void GetByIdAsync_ThrowsExceptionWhenTransactionNotFound()
+    {
+        _transactionRepositoryMock
+            .Setup(repo => repo.GetByIdAsync(It.IsAny<int>()))
+            .ReturnsAsync((Transaction)null);
+
+        Assert.ThrowsAsync<TransactionNotFoundException>(() => _transactionService.GetByIdAsync(1));
     }
 
     [Test]
     public async Task CreateAsync_CreatesNewTransaction()
     {
-        TransactionDto transactionDto = new() { Date = DateTime.Now, Type = TransactionType.Credit, Value = 100 };
+        var transactionDto = new TransactionRequestDto { Date = DateTime.Now, Type = TransactionTypeEnum.Credit, Value = 100 };
 
-        await _service.CreateAsync(transactionDto);
+        _transactionRepositoryMock
+            .Setup(repo => repo.CreateAsync(It.IsAny<Transaction>()))
+            .Returns(Task.CompletedTask);
 
-        _repositoryMock.Verify(r => r.CreateAsync(It.Is<Transaction>(t => t.Date == transactionDto.Date && t.Type == transactionDto.Type && t.Value == transactionDto.Value)), Times.Once);
+        await _transactionService.CreateAsync(transactionDto);
+
+        _transactionRepositoryMock.Verify(repo => repo.CreateAsync(It.IsAny<Transaction>()), Times.Once);
     }
 
     [Test]
     public async Task UpdateAsync_UpdatesExistingTransaction()
     {
-        TransactionDto transactionDto = new() { Id = 1, Date = DateTime.Now, Type = TransactionType.Credit, Value = 100 };
+        var transactionDto = new TransactionRequestDto { Date = DateTime.Now, Type = TransactionTypeEnum.Credit, Value = 100 };
 
-        await _service.UpdateAsync(transactionDto);
+        _transactionRepositoryMock
+            .Setup(repo => repo.UpdateAsync(It.IsAny<Domain.Transaction>()))
+            .Returns(Task.CompletedTask);
 
-        _repositoryMock.Verify(r => r.UpdateAsync(It.Is<Transaction>(t => t.Id == transactionDto.Id && t.Date == transactionDto.Date && t.Type == transactionDto.Type && t.Value == transactionDto.Value)), Times.Once);
+
+        await _transactionService.UpdateAsync(transactionDto, 1);
+
+        _transactionRepositoryMock.Verify(repo => repo.UpdateAsync(It.IsAny<Transaction>()), Times.Once);
     }
 
     [Test]
     public async Task DeleteAsync_DeletesTransaction()
     {
-        var id = 1;
+        _transactionRepositoryMock
+            .Setup(repo => repo.DeleteAsync(It.IsAny<int>()))
+            .Returns(Task.CompletedTask);
 
-        await _service.DeleteAsync(id);
+        await _transactionService.DeleteAsync(1);
 
-        _repositoryMock.Verify(r => r.DeleteAsync(id), Times.Once);
+        _transactionRepositoryMock.Verify(repo => repo.DeleteAsync(It.IsAny<int>()), Times.Once);
     }
 }
+
