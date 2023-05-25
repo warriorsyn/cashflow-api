@@ -2,7 +2,7 @@
 
 namespace CashFlow.Services.Transaction
 {
-    public class TransactionService
+    public class TransactionService: ITransactionService
     {
         private readonly ITransactionRepository _repository;
 
@@ -17,10 +17,9 @@ namespace CashFlow.Services.Transaction
         public async Task<Domain.Transaction> GetByIdAsync(int id) =>
             await _repository.GetByIdAsync(id);
 
-        public async Task<Domain.Transaction> CreateAsync(Domain.Transaction lancamento)
+        public async Task CreateAsync(Domain.Transaction lancamento)
         {
             await _repository.CreateAsync(lancamento);
-            return lancamento;
         }
 
         public async Task UpdateAsync(Domain.Transaction lancamento)

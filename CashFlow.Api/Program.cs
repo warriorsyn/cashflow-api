@@ -1,5 +1,6 @@
 using CashFlow.Infra.Data;
 using CashFlow.Infra.Repositories;
+using CashFlow.Services.Transaction;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +21,7 @@ builder.Services.AddSwaggerGen();
 // dependency injection
 
 builder.Services.AddScoped<ITransactionRepository, TransactionEFRepository>();
+builder.Services.AddScoped<ITransactionService, TransactionService>();
 
 var app = builder.Build();
 
