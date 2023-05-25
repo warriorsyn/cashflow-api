@@ -15,12 +15,7 @@ namespace CashFlow.Services.Report
 
         public async Task<DailyBalanceDto> GetDailyBalanceAsync(DateTime date)
         {
-            var transactions = await _repository.GetTransactionsByDate(date);
-            decimal totalBalance = 0m;
-            foreach (var transaction in transactions)
-            {
-                totalBalance += transaction.Type == Domain.TransactionType.Debit ? -transaction.Value : transaction.Value;
-            }
+            decimal totalBalance = await _repository.GetTotalBalanceByDate(date);
 
             return new DailyBalanceDto(totalBalance);
         }

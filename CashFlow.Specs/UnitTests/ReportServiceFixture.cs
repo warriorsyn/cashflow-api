@@ -1,6 +1,4 @@
-﻿using CashFlow.Domain;
-using CashFlow.Dto;
-using CashFlow.Infra.Repositories;
+﻿using CashFlow.Infra.Repositories;
 using CashFlow.Services.Report;
 using Moq;
 
@@ -19,36 +17,18 @@ public class ReportServiceTests
     }
 
     [Test]
-    public async Task GetDailyBalanceAsync_ReturnsCorrectBalance_WhenThereAreTransactions()
+    public async Task GetDailyBalanceAsync_ReturnsCorrectBalance()
     {
-        var date = new DateTime(2023, 5, 24);
-        List<Transaction> transactions = new() {
-            new Transaction { Type = TransactionType.Credit, Value = 100 },
-            new Transaction { Type = TransactionType.Debit, Value = 50 },
-            new Transaction { Type = TransactionType.Credit, Value = 3.50m },
-            new Transaction { Type = TransactionType.Debit, Value = 1.25m },
-        };
+        var date = new DateTime(2023, 6, 20);
+        var expectedBalance = 100m;
 
-        _repositoryMock.Setup(r => r.GetTransactionsByDate(date)).ReturnsAsync(transactions);
+        _repositoryMock
+            .Setup(repo => repo.GetTotalBalanceByDate(It.IsAny<DateTime>()))
+            .ReturnsAsync(expectedBalance);
 
 
-        var result = await _service.GetDailyBalanceAsync(date);
+        var dailyBalance = await _service.GetDailyBalanceAsync(date);
 
-        Assert.That(result, Is.InstanceOf<DailyBalanceDto>());
-        Assert.That(result.Balance, Is.EqualTo(52.25m));
-    }
-
-    [Test]
-    public async Task GetDailyBalanceAsync_ReturnsZeroBalance_WhenThereAreNoTransactions()
-    {
-        var date = new DateTime(2023, 5, 24);
-        List<Transaction> transactions = new();
-
-        _repositoryMock.Setup(r => r.GetTransactionsByDate(date)).ReturnsAsync(transactions);
-
-        var result = await _service.GetDailyBalanceAsync(date);
-
-        Assert.That(result, Is.InstanceOf<DailyBalanceDto>());
-        Assert.That(result.Balance, Is.EqualTo(0));
+        Assert.That(dailyBalance.Balance, Is.EqualTo(expectedBalance));
     }
 }

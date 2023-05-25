@@ -20,7 +20,14 @@ public class TransactionEFRepository: ITransactionRepository
     {
        return await _context.Transactions.Where(w => w.Date.Date == date.Date).ToListAsync();
     }
-      
+
+    public async Task<decimal> GetTotalBalanceByDate(DateTime date)
+    {
+        return await _context.Transactions
+            .Where(t => t.Date.Date == date.Date)
+            .SumAsync(t => t.Type == TransactionType.Debit ? -t.Value : t.Value);
+    }
+
 
     public async Task<Transaction> GetByIdAsync(int id) =>
         await _context.Transactions.FirstOrDefaultAsync(l => l.Id == id);

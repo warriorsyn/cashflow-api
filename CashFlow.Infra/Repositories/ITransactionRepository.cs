@@ -6,6 +6,7 @@ namespace CashFlow.Infra.Repositories
     {
         Task<List<Transaction>> GetAllAsync();
         Task<List<Transaction>> GetTransactionsByDate(DateTime date);
+        Task<decimal> GetTotalBalanceByDate(DateTime date);
         Task<Transaction> GetByIdAsync(int id);
         Task CreateAsync(Transaction lancamento);
         Task UpdateAsync(Transaction lancamento);
