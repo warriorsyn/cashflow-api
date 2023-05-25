@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace CashFlow.Domain;
 
-namespace CashFlow.Domain
+public class Transaction
 {
-    internal class Transaction
-    {
-    }
+    public int Id { get; set; }
+    public decimal Valor { get; set; }
+    public DateTime Data { get; set; }
+    public TransactionType Tipo { get; set; }
+}
+
+public enum TransactionType
+{
+    Credit,
+    Debit
 }
